@@ -23,11 +23,10 @@ font pango:monospace 8
 # AUTO STARTUP
 # ###################################
 ### app
-exec_always --no-startup-id ~/.fehbg
+exec_always --no-startup-id ~/.config/i3/wallpaper.sh
 exec --no-startup-id compton -b
 exec --no-startup-id /usr/bin/v2ray --config /etc/v2ray/config.json
 exec fcitx
-
 
 
 # ###################################
@@ -43,14 +42,15 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal
-# custom workspace
 bindsym $mod+i exec i3-input -F 'workspace %s' -P 'go to workspace: '
 bindsym $mod+Shift+i exec i3-input -F 'move container to workspace %s' -P 'move to workspace: '
+bindcode $mod2+111 exec --no-startup-id amixer set Speaker 2+
+bindcode $mod2+116 exec --no-startup-id amixer set Speaker 2-
 
 # custom applications shotcut
 bindsym $mod2+Shift+w exec google-chrome-stable --proxy-server="socks://127.0.0.1:1080"
 bindsym $mod2+w exec google-chrome-stable
-bindsym $mod+Print exec xfce4-screenshooter
+bindcode $mod+107 exec xfce4-screenshooter
 
 # kill focused window
 bindsym $mod+q kill
@@ -115,16 +115,15 @@ bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
-set $ws2 "2 Browser"
-set $ws3 "3 Documents"
-set $ws4 "4 Vmware"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -240,8 +239,8 @@ mode "$mode_system" {
 
 
 ######################## i3-gaps ####################################################
-
-for_window [class="^.*"] border pixel 1
+# pixel 数值为长度
+for_window [class="^.*"] border pixel 2
 gaps inner 8
 gaps outer 6
 set $mode_gaps Gaps: (o) outer, (i) inner
@@ -281,7 +280,6 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
-# custom workspace
 set $mode_ws "workspace"
 bindsym $mod+o mode $mode_workspace
 mode $mode_workspace {
